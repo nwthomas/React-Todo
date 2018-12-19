@@ -29,17 +29,32 @@ class App extends React.Component {
     };
   }
 
-  addCharacter = event => {
-    console.log("Working!!!" + event);
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+    console.log(event.target.name);
   };
 
-  // you will need a place to store your state in this component.
-  // this component is going to take care of state, and any change handlers you need to work with your state
+  addCharacter = event => {
+    event.preventDefautl();
+    this.setState({
+      listItems: [
+        ...this.state.listItems,
+        { task: this.state.inputText, id: Date.now(), completed: false }
+      ],
+      inputText: ""
+    });
+  };
+
   render() {
     return (
       <div className="app">
         <TodoList tasks={this.state.listItems} />
-        <TodoForm inputText={this.state.inputText} />
+        <TodoForm
+          inputText={this.state.inputText}
+          handleChange={this.addCharacter}
+        />
       </div>
     );
   }

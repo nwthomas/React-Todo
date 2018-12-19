@@ -6,7 +6,6 @@ const TodoForm = props => {
       <input
         type="text"
         name="inputText"
-        placeholder="Enter some text here..."
         value={props.inputText}
         onChange={props.handleChange}
       />
