@@ -23,3 +23,63 @@
   border-bottom: 1px dotted #ad91ed;
   margin: 20px 0;
 }
+
+@media (max-width: 800px) {
+  .todo__list {
+    margin: 20px 5%;
+  }
+}
+
+@media (max-width: 800px) {
+  .todo__form {
+    margin: 0 5%;
+  }
+}
+
+.text__input {
+  height: 30px;
+  width: 354px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+}
+
+@media (max-width: 500px) {
+  .text__input {
+    width: 100%;
+  }
+}
+
+.todo__btn {
+  margin: 0 2.5% 20px 0;
+  height: 50px;
+  width: 170px;
+  background: #6936de;
+  color: white;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  border: 0;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+
+.todo__btn:hover {
+  border: 1px solid #ad91ed;
+  color: #ad91ed;
+  background: white;
+}
+
+@media (max-width: 500px) {
+  .todo__btn {
+    width: 48.7%;
+    margin: 0;
+  }
+
+  .todo__btn:last-child {
+    margin-left: 2.5%;
+  }
+}
