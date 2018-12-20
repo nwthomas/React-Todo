@@ -1,3 +1,15 @@
 .app__container {
   margin: 100px;
 }
+
+.todo__item {
+  cursor: pointer;
+}
+
+.todo__item.line-through {
+  text-decoration: line-through;
+}
+
+.todo__item.none {
+  text-decoration: none;
+}

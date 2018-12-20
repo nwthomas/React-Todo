@@ -9,7 +9,7 @@ let toDo = [
     task: "Organize Garage",
     id: 1528817077286,
     completed: false,
-    textDecoration: "line-through"
+    textDecoration: "none"
   },
   {
     task: "Bake Cookies",
@@ -41,13 +41,31 @@ class App extends React.Component {
     });
   };
 
-  addTask = event => {
-    // How to "mutate" data in React with .setState()
-    // 1 - Prevent default behavior with event.preventDefault()
-    // 2 - Get all the old data in the old array (use spread operator) and a comma between it and #2
-    // 3 - Get the new data from this.state.inputText above (or whatever you called it) and create new object
-    // 4 - Change inputText back to empty string ""
+  makeLineThrough = id => {
+    // 1 - Look through characters
+    // 2 - Look at each character id to see if it's the one we clicked on
+    // 3 - If we are looking at the character we clicked on, we will change the character textDecoration to "line-through"
+    // 4 - Else we will return the character object unchanged
+    this.setState({
+      listItems: this.state.listItems.map(task => {
+        if (task.id === id) {
+          return {
+            ...task,
+            textDecoration:
+              task.textDecoration === "none" ? "line-through" : "none"
+          };
+        } else {
+          return task;
+        }
+      })
+    });
+  };
 
+  addTask = event => {
+    // 1 - Prevent default behavior with event.preventDefault()
+    // 2 - Get the new data from this.state.inputText above (or whatever you called it)
+    // 3 - Prevent default behavior with event.preventDefault()
+    // 4 - Change inputText back to empty string ""
     const newTask = {
       task: this.state.inputText,
       id: Date.now(),
@@ -63,10 +81,15 @@ class App extends React.Component {
     store.set(toDo); // Working on persistence here
   };
 
+  deleteTask = event => {};
+
   render() {
     return (
       <div className="app__container">
-        <TodoList tasks={this.state.listItems} />
+        <TodoList
+          tasks={this.state.listItems}
+          makeLineThrough={this.makeLineThrough}
+        />
         <TodoForm
           addTask={this.addTask}
           inputText={this.state.inputText}
