@@ -81,7 +81,14 @@ class App extends React.Component {
     store.set(toDo); // Working on persistence here
   };
 
-  deleteTask = event => {};
+  deleteTask = event => {
+    event.preventDefault();
+    this.setState({
+      listItems: this.state.listItems.filter(
+        task => task.textDecoration === "none"
+      )
+    });
+  };
 
   render() {
     return (
@@ -94,6 +101,7 @@ class App extends React.Component {
           addTask={this.addTask}
           inputText={this.state.inputText}
           handleChange={this.handleChange}
+          deleteTask={this.deleteTask}
         />
       </div>
     );
