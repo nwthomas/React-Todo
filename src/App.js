@@ -1,6 +1,7 @@
 import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
+import NavbarContainer from "./components/NavbarComponents/NavbarContainer";
 import store from "store";
 import "./App.css";
 
@@ -107,16 +108,19 @@ class App extends React.Component {
   render() {
     return (
       <div className="app__container">
-        <TodoList
-          tasks={this.state.listItems}
-          makeLineThrough={this.makeLineThrough}
-        />
-        <TodoForm
-          addTask={this.addTask}
-          inputText={this.state.inputText}
-          handleChange={this.handleChange}
-          deleteTask={this.deleteTask}
-        />
+        <NavbarContainer />
+        <div className="app">
+          <TodoList
+            tasks={this.state.listItems}
+            makeLineThrough={this.makeLineThrough}
+          />
+          <TodoForm
+            addTask={this.addTask}
+            inputText={this.state.inputText}
+            handleChange={this.handleChange}
+            deleteTask={this.deleteTask}
+          />
+        </div>
       </div>
     );
   }

@@ -1,0 +1,25 @@
+.todo__item {
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-family: "Open Sans", sans-serif;
+}
+
+.todo__list:last-child {
+  margin-bottom: 0;
+}
+
+.todo__item.line-through {
+  text-decoration: line-through;
+}
+
+.todo__item.none {
+  text-decoration: none;
+}
+
+.todo__list {
+  padding: 20px 0 0;
+  border-top: 1px dotted #ad91ed;
+  border-bottom: 1px dotted #ad91ed;
+  margin: 20px 0;
+}
