@@ -6,7 +6,14 @@ const TodoList = props => {
     <div className="todo__list">
       {[
         props.tasks.map((task, index) => {
-          return <Todo className="todo__item" key={index} task={task.task} />;
+          return (
+            <Todo
+              textDecoration={task.textDecoration}
+              className="todo__item"
+              key={task.id}
+              task={task.task}
+            />
+          );
         })
       ]}
     </div>
