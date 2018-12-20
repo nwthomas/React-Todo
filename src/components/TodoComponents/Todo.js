@@ -6,7 +6,7 @@ const Todo = props => (
     style={{ textDecoration: props.textDecoration }}
     className={`todo__item ${props.className}`}
   >
-    {props.task}
+    {props.index + 1}.) {props.task}
   </p>
 );
 

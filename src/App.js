@@ -22,6 +22,18 @@ let toDo = [
     id: 1528818473621,
     completed: false,
     textDecoration: "none"
+  },
+  {
+    task: "Drink Hot Chocolate",
+    id: 1528818498456,
+    completed: false,
+    textDecoration: "none"
+  },
+  {
+    task: "Eat Candy Canes",
+    id: 1528819873625,
+    completed: false,
+    textDecoration: "none"
   }
 ];
 
@@ -30,8 +42,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       listItems: toDo,
-      inputText: "",
-      inputTextTwo: ""
+      inputText: ""
     };
   }
 
@@ -73,10 +84,13 @@ class App extends React.Component {
       textDecoration: "none"
     };
     event.preventDefault();
-    this.setState({
-      listItems: [...this.state.listItems, newTask],
-      inputText: ""
-    });
+    this.setState(
+      {
+        listItems: [...this.state.listItems, newTask],
+        inputText: ""
+      },
+      () => console.log(this.state) // Using annonymous arrow function to run console.log after .setState() has run
+    );
 
     store.set(toDo); // Working on persistence here
   };
