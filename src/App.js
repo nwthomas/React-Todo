@@ -7,7 +7,7 @@ import "./App.css";
 
 let toDo = [
   {
-    task: "Organize Garage",
+    task: "Get Tooth Pulled",
     id: 1528817077286,
     completed: false,
     textDecoration: "none"
@@ -85,6 +85,7 @@ class App extends React.Component {
       textDecoration: "none"
     };
     event.preventDefault();
+    if (newTask.task === "") return;
     this.setState(
       {
         listItems: [...this.state.listItems, newTask],
@@ -93,7 +94,7 @@ class App extends React.Component {
       () => console.log(this.state) // Using annonymous arrow function to run console.log after .setState() has run
     );
 
-    store.set(toDo); // Working on persistence here
+    store.set(this.state.listItems);
   };
 
   deleteTask = event => {
