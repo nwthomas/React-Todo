@@ -85,7 +85,7 @@ class App extends React.Component {
     // 3 - If we are looking at the character we clicked on, we will change the character textDecoration to "line-through"
     // 4 - Else we will return the character object unchanged
 
-    const newListItems = this.state.listItems.map(task => {
+    const newListItems = this.state.shownListItems.map(task => {
       if (task.id === id) {
         return {
           ...task,
