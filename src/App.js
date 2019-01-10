@@ -43,14 +43,26 @@ class App extends React.Component {
     super(props);
     this.state = {
       listItems: toDo,
-      inputText: ""
+      inputText: "",
+      searchInputText: ""
     };
   }
+
+  searchList = text => {
+    if (!this.state.searchInputText) {
+      return;
+    } else {
+      this.setState({});
+    }
+  };
 
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
+    if (event.target.name === "searchInputText") {
+      this.searchList(event.target.value);
+    }
   };
 
   makeLineThrough = id => {
@@ -109,7 +121,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="app__container">
-        <NavbarContainer />
+        <NavbarContainer
+          searchInputText={this.state.searchInputText}
+          handleChange={this.handleChange}
+        />
         <div className="app">
           <TodoList
             tasks={this.state.listItems}

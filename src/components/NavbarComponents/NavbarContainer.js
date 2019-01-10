@@ -2,10 +2,13 @@ import React from "react";
 import Navbar from "./Navbar";
 import "./Navbar.css";
 
-const NavbarContainer = _ => {
+const NavbarContainer = props => {
   return (
     <div className="navbar__container">
-      <Navbar />
+      <Navbar
+        handleChange={props.handleChange}
+        searchInputText={props.searchInputText}
+      />
     </div>
   );
 };

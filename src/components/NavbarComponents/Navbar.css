@@ -11,6 +11,8 @@
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 .navbar p {
@@ -25,4 +27,13 @@
   .navbar p {
     margin-left: 5%;
   }
+}
+
+.search__input {
+  height: 30px;
+  width: 190px;
+  margin-top: 5px;
+  padding-left: 7px;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
 }
