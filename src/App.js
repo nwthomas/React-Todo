@@ -50,7 +50,7 @@ class App extends React.Component {
   }
 
   searchList = searchText => {
-    if (searchText.length > 0) {
+    if (searchText.length) {
       const shownArr = this.state.listItems.filter(item => {
         if (
           JSON.stringify(item)
@@ -74,7 +74,7 @@ class App extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    if (this.state.searchInputText.length > 0) {
+    if (this.state.searchInputText) {
       this.searchList(event.target.value);
     }
   };
