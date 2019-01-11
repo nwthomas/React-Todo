@@ -2,7 +2,7 @@ import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
 import NavbarContainer from "./components/NavbarComponents/NavbarContainer";
-import store from "store";
+// import store from "store";
 import "./App.css";
 
 let toDo = [
@@ -45,7 +45,8 @@ class App extends React.Component {
       listItems: toDo,
       shownListItems: toDo,
       inputText: "",
-      searchInputText: ""
+      searchInputText: "",
+      updateAlert: ""
     };
   }
 
@@ -116,6 +117,23 @@ class App extends React.Component {
     });
   };
 
+  alertMessage = () => {
+    this.setState(
+      {
+        updateAlert: "Task has been added"
+      },
+      () => {
+        setTimeout(
+          () =>
+            this.setState({
+              updateAlert: ""
+            }),
+          2000
+        );
+      }
+    );
+  };
+
   addTask = event => {
     // 1 - Prevent default behavior with event.preventDefault()
     // 2 - Get the new data from this.state.inputText above (or whatever you called it)
@@ -129,11 +147,16 @@ class App extends React.Component {
     };
     event.preventDefault();
     if (newTask.task === "") return;
-    this.setState({
-      listItems: [...this.state.listItems, newTask],
-      shownListItems: [...this.state.shownListItems, newTask],
-      inputText: ""
-    });
+    this.setState(
+      {
+        listItems: [...this.state.listItems, newTask],
+        shownListItems: [...this.state.shownListItems, newTask],
+        inputText: ""
+      },
+      () => {
+        this.alertMessage();
+      }
+    );
     // store.set(this.state.listItems);
   };
 
@@ -163,12 +186,15 @@ class App extends React.Component {
             tasks={this.state.shownListItems}
             makeLineThrough={this.makeLineThrough}
           />
-          <TodoForm
-            addTask={this.addTask}
-            inputText={this.state.inputText}
-            handleChange={this.handleChange}
-            deleteTask={this.deleteTask}
-          />
+          <div className="form__container">
+            <TodoForm
+              addTask={this.addTask}
+              inputText={this.state.inputText}
+              handleChange={this.handleChange}
+              deleteTask={this.deleteTask}
+            />
+            <p className="update__alert">{this.state.updateAlert}</p>
+          </div>
         </div>
       </div>
     );

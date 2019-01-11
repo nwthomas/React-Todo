@@ -30,15 +30,26 @@
   }
 }
 
+.todo__form {
+  width: 50%;
+}
+
 @media (max-width: 800px) {
   .todo__form {
     margin: 0 5%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .todo__form {
+    width: 90%;
   }
 }
 
 .text__input {
   height: 30px;
-  width: 354px;
+  width: 340px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -82,5 +93,18 @@
 
   .todo__btn:last-child {
     margin-left: 2.5%;
+  }
+}
+
+.update__alert {
+  margin: 11px 0 0 2%;
+  font-size: 1.4rem;
+  color: #ad91ed;
+  font-family: "Open Sans", sans-serif;
+}
+
+@media (max-width: 800px) {
+  .update__alert {
+    display: none;
   }
 }
