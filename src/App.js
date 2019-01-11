@@ -50,7 +50,7 @@ class App extends React.Component {
   }
 
   searchList = searchText => {
-    if (searchText.length) {
+    if (this.state.searchInputText) {
       const shownArr = this.state.listItems.filter(item => {
         if (
           JSON.stringify(item)
@@ -58,6 +58,8 @@ class App extends React.Component {
             .includes(searchText.toLowerCase())
         ) {
           return true;
+        } else {
+          return false;
         }
       });
       this.setState({
@@ -71,12 +73,14 @@ class App extends React.Component {
   };
 
   handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-    if (this.state.searchInputText) {
-      this.searchList(event.target.value);
-    }
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        this.searchList(this.state.searchInputText);
+      }
+    );
   };
 
   makeLineThrough = id => {
@@ -84,8 +88,18 @@ class App extends React.Component {
     // 2 - Look at each character id to see if it's the one we clicked on
     // 3 - If we are looking at the character we clicked on, we will change the character textDecoration to "line-through"
     // 4 - Else we will return the character object unchanged
-
-    const newListItems = this.state.shownListItems.map(task => {
+    const newListItems = this.state.listItems.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          textDecoration:
+            task.textDecoration === "none" ? "line-through" : "none"
+        };
+      } else {
+        return task;
+      }
+    });
+    const newShownListItems = this.state.shownListItems.map(task => {
       if (task.id === id) {
         return {
           ...task,
@@ -98,7 +112,7 @@ class App extends React.Component {
     });
     this.setState({
       listItems: newListItems,
-      shownListItems: newListItems
+      shownListItems: newShownListItems
     });
   };
 
@@ -117,20 +131,23 @@ class App extends React.Component {
     if (newTask.task === "") return;
     this.setState({
       listItems: [...this.state.listItems, newTask],
-      shownListItems: [...this.state.listItems, newTask],
+      shownListItems: [...this.state.shownListItems, newTask],
       inputText: ""
     });
-    store.set(this.state.listItems);
+    // store.set(this.state.listItems);
   };
 
   deleteTask = event => {
     event.preventDefault();
-    const newListItems = this.state.shownListItems.filter(
+    const newListItems = this.state.listItems.filter(
+      task => task.textDecoration === "none"
+    );
+    const newShownListItems = this.state.shownListItems.filter(
       task => task.textDecoration === "none"
     );
     this.setState({
       listItems: newListItems,
-      shownListItems: newListItems
+      shownListItems: newShownListItems
     });
   };
 
