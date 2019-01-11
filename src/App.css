@@ -140,3 +140,13 @@ table {
   width: 100%;
   margin: 50px auto;
 }
+
+.form__container {
+  display: flex;
+}
+
+@media (max-width: 800px) {
+  .form__container {
+    flex-direction: column;
+  }
+}

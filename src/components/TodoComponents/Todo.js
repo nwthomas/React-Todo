@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./Todo.css";
 
 const Todo = props => (
@@ -10,5 +11,10 @@ const Todo = props => (
     {props.index + 1}. {props.task}
   </p>
 );
+
+Todo.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.string
+};
 
 export default Todo;

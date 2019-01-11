@@ -2,12 +2,12 @@ import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
 import NavbarContainer from "./components/NavbarComponents/NavbarContainer";
-import store from "store";
+// import store from "store";
 import "./App.css";
 
 let toDo = [
   {
-    task: "Organize Garage",
+    task: "Get Tooth Pulled",
     id: 1528817077286,
     completed: false,
     textDecoration: "none"
@@ -43,14 +43,45 @@ class App extends React.Component {
     super(props);
     this.state = {
       listItems: toDo,
-      inputText: ""
+      shownListItems: toDo,
+      inputText: "",
+      searchInputText: "",
+      updateAlert: ""
     };
   }
 
+  searchList = searchText => {
+    if (this.state.searchInputText) {
+      const shownArr = this.state.listItems.filter(item => {
+        if (
+          JSON.stringify(item)
+            .toLowerCase()
+            .includes(searchText.toLowerCase())
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      this.setState({
+        shownListItems: shownArr
+      });
+    } else {
+      this.setState({
+        shownListItems: this.state.listItems
+      });
+    }
+  };
+
   handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        this.searchList(this.state.searchInputText);
+      }
+    );
   };
 
   makeLineThrough = id => {
@@ -58,19 +89,49 @@ class App extends React.Component {
     // 2 - Look at each character id to see if it's the one we clicked on
     // 3 - If we are looking at the character we clicked on, we will change the character textDecoration to "line-through"
     // 4 - Else we will return the character object unchanged
-    this.setState({
-      listItems: this.state.listItems.map(task => {
-        if (task.id === id) {
-          return {
-            ...task,
-            textDecoration:
-              task.textDecoration === "none" ? "line-through" : "none"
-          };
-        } else {
-          return task;
-        }
-      })
+    const newListItems = this.state.listItems.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          textDecoration:
+            task.textDecoration === "none" ? "line-through" : "none"
+        };
+      } else {
+        return task;
+      }
     });
+    const newShownListItems = this.state.shownListItems.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          textDecoration:
+            task.textDecoration === "none" ? "line-through" : "none"
+        };
+      } else {
+        return task;
+      }
+    });
+    this.setState({
+      listItems: newListItems,
+      shownListItems: newShownListItems
+    });
+  };
+
+  alertMessage = () => {
+    this.setState(
+      {
+        updateAlert: "Task has been added"
+      },
+      () => {
+        setTimeout(
+          () =>
+            this.setState({
+              updateAlert: ""
+            }),
+          2000
+        );
+      }
+    );
   };
 
   addTask = event => {
@@ -85,41 +146,55 @@ class App extends React.Component {
       textDecoration: "none"
     };
     event.preventDefault();
+    if (newTask.task === "") return;
     this.setState(
       {
         listItems: [...this.state.listItems, newTask],
+        shownListItems: [...this.state.shownListItems, newTask],
         inputText: ""
       },
-      () => console.log(this.state) // Using annonymous arrow function to run console.log after .setState() has run
+      () => {
+        this.alertMessage();
+      }
     );
-
-    store.set(toDo); // Working on persistence here
+    // store.set(this.state.listItems);
   };
 
   deleteTask = event => {
     event.preventDefault();
+    const newListItems = this.state.listItems.filter(
+      task => task.textDecoration === "none"
+    );
+    const newShownListItems = this.state.shownListItems.filter(
+      task => task.textDecoration === "none"
+    );
     this.setState({
-      listItems: this.state.listItems.filter(
-        task => task.textDecoration === "none"
-      )
+      listItems: newListItems,
+      shownListItems: newShownListItems
     });
   };
 
   render() {
     return (
       <div className="app__container">
-        <NavbarContainer />
+        <NavbarContainer
+          searchInputText={this.state.searchInputText}
+          handleChange={this.handleChange}
+        />
         <div className="app">
           <TodoList
-            tasks={this.state.listItems}
+            tasks={this.state.shownListItems}
             makeLineThrough={this.makeLineThrough}
           />
-          <TodoForm
-            addTask={this.addTask}
-            inputText={this.state.inputText}
-            handleChange={this.handleChange}
-            deleteTask={this.deleteTask}
-          />
+          <div className="form__container">
+            <TodoForm
+              addTask={this.addTask}
+              inputText={this.state.inputText}
+              handleChange={this.handleChange}
+              deleteTask={this.deleteTask}
+            />
+            <p className="update__alert">{this.state.updateAlert}</p>
+          </div>
         </div>
       </div>
     );

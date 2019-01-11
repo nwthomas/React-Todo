@@ -11,6 +11,8 @@
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 .navbar p {
@@ -21,8 +23,28 @@
   font-size: 2rem;
 }
 
+.search__input {
+  height: 30px;
+  width: 190px;
+  margin-top: 5px;
+  padding-left: 7px;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+}
+
 @media (max-width: 800px) {
   .navbar p {
     margin-left: 5%;
+  }
+
+  .search__input {
+    margin-right: 5%;
+    width: 30%;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar p {
+    font-size: 1.6rem;
   }
 }
